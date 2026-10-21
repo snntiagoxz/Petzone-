@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetZone — Tu mascota virtual</title>
+<meta name="theme-color" content="#0b0d17">
+<meta name="description" content="Cuida, alimenta y juega con tu mascota virtual en PetZone.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PetZone">
+
+<style>
+:root{--bg:#0b0d17;--panel:#141827;--panel2:#1a2032;--line:#293149;--text:#f4f5ff;--muted:#a4abc4;--purple:#8b5cf6;--purple2:#6d4aff;--pink:#f472b6;--green:#5ee0b5;--yellow:#ffd166;--red:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#242044 0,transparent 45%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;border:0;transition:transform .16s,filter .16s}button:hover{filter:brightness(1.12);transform:translateY(-2px)}button:active{transform:scale(.98)}
+.app{max-width:1180px;margin:auto;padding:24px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:850;letter-spacing:-.04em}.brand-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--pink));font-size:23px;box-shadow:0 8px 25px #8b5cf633}.wallet{background:var(--panel);border:1px solid var(--line);padding:10px 15px;border-radius:15px;font-weight:750;color:var(--yellow)}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:18px}.panel{background:linear-gradient(145deg,#171b2b,#111522);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 18px 50px #0002}.pet-panel{padding:25px;position:relative;min-height:590px;display:flex;flex-direction:column}.eyebrow{font-size:.77rem;text-transform:uppercase;letter-spacing:.15em;color:#b8a5ff;font-weight:800}.welcome{font-size:1.65rem;font-weight:800;margin:8px 0 4px;letter-spacing:-.04em}.sub{color:var(--muted);font-size:.93rem}.scene{flex:1;min-height:280px;margin:22px 0 16px;border-radius:22px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 78%,#554079 0,#2c294a 32%,#171a31 68%,#111525 100%);border:1px solid #34304d}.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#b9a7ff 1px,transparent 1.5px);background-size:61px 61px,97px 97px;background-position:10px 15px,38px 4px;opacity:.28}.moon{position:absolute;right:11%;top:12%;width:48px;height:48px;border-radius:50%;background:#d9d5ff;box-shadow:0 0 35px #b9a7ff88}.floor{position:absolute;bottom:-65px;width:120%;height:150px;border-radius:50%;background:#25223d;border-top:2px solid #4e426f}.pet{z-index:2;font-size:clamp(115px,18vw,190px);filter:drop-shadow(0 18px 12px #0005);animation:bob 2.5s ease-in-out infinite;user-select:none}.pet.sleep{animation:sleepy 3s ease-in-out infinite;filter:drop-shadow(0 18px 12px #0005) saturate(.8)}.pet.playful{animation:happyHop .55s ease-in-out 3}.pet.eating{animation:nomNom .35s ease-in-out 5}.pet.loved{animation:heartBounce .65s ease-in-out 2}@keyframes happyHop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(9deg) scale(1.05)}}@keyframes nomNom{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.08,.92) rotate(-4deg)}}@keyframes heartBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15) rotate(7deg)}}@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}@keyframes sleepy{0%,100%{transform:translateY(8px) scaleY(.94)}50%{transform:translateY(13px) scaleY(.91)}}.pet-name{position:absolute;top:17px;left:18px;background:#101323bd;border:1px solid #ffffff1c;padding:9px 13px;border-radius:12px;font-weight:800;z-index:3}.speech{position:absolute;bottom:20px;right:18px;background:#ffffffed;color:#29213e;padding:11px 14px;border-radius:14px 14px 4px 14px;font-size:.85rem;font-weight:700;z-index:3;max-width:60%}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{padding:13px;background:#0f1321;border:1px solid var(--line);border-radius:15px}.stat-head{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:.83rem;margin-bottom:9px}.stat-head span:first-child{color:var(--muted)}.bar{height:8px;background:#2a3044;border-radius:99px;overflow:hidden}.fill{height:100%;width:50%;border-radius:99px;transition:width .35s}.hunger{background:linear-gradient(90deg,#fb923c,#ffd166)}.happy{background:linear-gradient(90deg,#ec4899,#f9a8d4)}.energy{background:linear-gradient(90deg,#7c6cff,#65b7ff)}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}.action{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:16px;padding:14px 8px;font-weight:750}.action .emoji{display:block;font-size:1.6rem;margin-bottom:7px}.action small{display:block;color:var(--muted);font-weight:500;margin-top:4px;font-size:.72rem}.side{display:flex;flex-direction:column;gap:18px}.side .panel{padding:22px}.section-title{font-size:1.06rem;font-weight:800;margin:0 0 6px}.section-sub{font-size:.84rem;color:var(--muted);margin:0 0 16px}.food-list{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.food{background:#101524;border:1px solid var(--line);border-radius:15px;color:var(--text);padding:12px 5px;text-align:center}.food .emoji{font-size:1.7rem;display:block;margin-bottom:7px}.food b{font-size:.78rem;display:block}.food small{display:block;color:var(--yellow);margin-top:5px}.shop-row{display:flex;align-items:center;gap:12px;background:#101524;border:1px solid var(--line);padding:12px;border-radius:15px;margin-top:9px}.shop-emoji{font-size:1.7rem}.shop-info{flex:1}.shop-info b{display:block;font-size:.88rem}.shop-info small{color:var(--muted)}.buy{background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;padding:9px 12px;border-radius:10px;font-size:.8rem;font-weight:800}.bottom{color:var(--muted);text-align:center;font-size:.8rem;padding:20px 0 5px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f4f1ff;color:#241d3a;padding:13px 18px;border-radius:14px;box-shadow:0 10px 35px #0005;font-weight:800;transition:all .25s;z-index:10;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:#050610bb;display:none;place-items:center;padding:20px;z-index:20}.modal-backdrop.open{display:grid}.modal{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:24px;width:min(430px,100%);box-shadow:0 20px 80px #0008}.modal h2{margin-top:0}.field{display:block;width:100%;margin:8px 0 16px;background:#0d1120;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--text)}.pet-choices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 18px}.pet-choice{background:#0d1120;border:1px solid var(--line);border-radius:14px;padding:12px;font-size:2rem}.pet-choice span{display:block;font-size:.65rem;color:var(--muted);margin-top:4px}.pet-choice.selected{border-color:var(--purple);background:#282044}.primary{width:100%;background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;padding:13px;border-radius:12px;font-weight:850}.secondary{background:#252b40;color:var(--text);padding:10px 13px;border-radius:11px;font-weight:700}.top-actions{display:flex;gap:8px;align-items:center}.status-note{font-size:.8rem;color:var(--muted);margin-top:12px}
+@media(max-width:800px){.app{padding:14px}.layout{grid-template-columns:1fr}.pet-panel{min-height:auto;padding:18px}.scene{min-height:310px}.pet{font-size:150px}.stats{grid-template-columns:1fr}.stat{padding:11px}.actions{grid-template-columns:repeat(2,1fr)}.side{display:grid;grid-template-columns:1fr}.topbar{margin-bottom:14px}.welcome{font-size:1.4rem}}
+@media(max-width:400px){.food-list{grid-template-columns:repeat(2,1fr)}.scene{min-height:270px}.pet{font-size:125px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">🐾</div><span>PetZone</span></div>
+    <div class="top-actions"><div class="wallet">🪙 <span id="coins">100</span></div><button class="secondary" id="settingsBtn" aria-label="Configuración">⚙️</button></div>
+  </header>
+  <main class="layout">
+    <section class="panel pet-panel">
+      <div class="eyebrow">Tu pequeño mundo</div>
+      <div class="welcome">¡Hola! Tu mascota te espera ✨</div>
+      <div class="sub">Cuídala un poquito cada día y mira cómo crece.</div>
+      <div class="scene">
+        <div class="stars"></div><div class="moon"></div><div class="floor"></div>
+        <div class="pet-name" id="petNameLabel">Milo · Nivel 1</div>
+        <div class="pet" id="petArt" aria-label="Tu mascota">🐶</div>
+        <div class="speech" id="speech">¡Hola! ¿Jugamos? 💜</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-head"><span>🍗 Hambre</span><b id="hungerVal">75%</b></div><div class="bar"><div class="fill hunger" id="hungerBar"></div></div></div>
+        <div class="stat"><div class="stat-head"><span>💗 Felicidad</span><b id="happyVal">80%</b></div><div class="bar"><div class="fill happy" id="happyBar"></div></div></div>
+        <div class="stat"><div class="stat-head"><span>⚡ Energía</span><b id="energyVal">85%</b></div><div class="bar"><div class="fill energy" id="energyBar"></div></div></div>
+      </div>
+      <div class="actions">
+        <button class="action" id="feedBtn"><span class="emoji">🥣</span>Alimentar<small>Cuida su hambre</small></button>
+        <button class="action" id="playBtn"><span class="emoji">🎾</span>Jugar<small>Sube su felicidad</small></button>
+        <button class="action" id="sleepBtn"><span class="emoji">🛏️</span>Descansar<small>Recupera energía</small></button>
+        <button class="action" id="petBtn"><span class="emoji">🤍</span>Acariciar<small>Un poco de cariño</small></button>
+      </div>
+      <div class="status-note" id="statusNote">Tu progreso se guarda automáticamente en este navegador.</div>
+    </section>
+    <aside class="side">
+      <section class="panel">
+        <h2 class="section-title">🍓 Comidita</h2><p class="section-sub">Dale algo rico a tu mejor amigo.</p>
+        <div class="food-list">
+          <button class="food" data-food="croquetas"><span class="emoji">🥣</span><b>Croquetas</b><small>Gratis</small></button>
+          <button class="food" data-food="pollo"><span class="emoji">🍗</span><b>Pollo</b><small>🪙 10</small></button>
+          <button class="food" data-food="pescado"><span class="emoji">🐟</span><b>Pescado</b><small>🪙 15</small></button>
+        </div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">🎁 Tiendita</h2><p class="section-sub">Compra premios con tus monedas.</p>
+        <div class="shop-row"><div class="shop-emoji">🦴</div><div class="shop-info"><b>Huesito especial</b><small>+15 felicidad</small></div><button class="buy" data-buy="bone">🪙 20</button></div>
+        <div class="shop-row"><div class="shop-emoji">🎀</div><div class="shop-info"><b>Accesorio bonito</b><small>+10 felicidad</small></div><button class="buy" data-buy="bow">🪙 25</button></div>
+        <div class="shop-row"><div class="shop-emoji">🧸</div><div class="shop-info"><b>Juguete nuevo</b><small>+20 felicidad</small></div><button class="buy" data-buy="toy">🪙 30</button></div>
+      </section>
+      <section class="panel">
+        <h2 class="section-title">🌟 Tu aventura</h2><p class="section-sub">Cada acción te acerca a un nuevo nivel.</p>
+        <div class="stat"><div class="stat-head"><span>Experiencia</span><b id="xpVal">0 / 100 XP</b></div><div class="bar"><div class="fill energy" id="xpBar"></div></div></div>
+        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:.88rem"><span class="sub">Acciones realizadas</span><b id="actionsCount">0</b></div>
+        <button class="secondary" id="renameBtn" style="width:100%;margin-top:14px">✏️ Cambiar nombre o mascota</button>
+      </section>
+    </aside>
+  </main>
+  <footer class="bottom">PetZone · Pequeñas acciones, grandes momentos 💜</footer>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2>🐾 Tu compañero</h2><p class="sub">Ponle un nombre y elige quién te acompañará.</p>
+    <label for="nameInput">Nombre de tu mascota</label><input class="field" id="nameInput" maxlength="16" placeholder="Ej. Milo">
+    <div class="sub">Elige tu mascota</div>
+    <div class="pet-choices">
+      <button class="pet-choice selected" data-pet="🐶" aria-label="Perro">🐶<span>Perro</span></button>
+      <button class="pet-choice" data-pet="🐱" aria-label="Gato">🐱<span>Gato</span></button>
+      <button class="pet-choice" data-pet="🐰" aria-label="Conejo">🐰<span>Conejo</span></button>
+      <button class="pet-choice" data-pet="🦊" aria-label="Zorro">🦊<span>Zorro</span></button>
+      <button class="pet-choice" data-pet="🐼" aria-label="Panda">🐼<span>Panda</span></button>
+      <button class="pet-choice" data-pet="🐸" aria-label="Rana">🐸<span>Rana</span></button>
+      <button class="pet-choice" data-pet="🐹" aria-label="Hámster">🐹<span>Hámster</span></button>
+      <button class="pet-choice" data-pet="🐢" aria-label="Tortuga">🐢<span>Tortuga</span></button>
+    </div>
+    <button class="primary" id="savePetBtn">¡Empezar aventura!</button>
+    <button class="secondary" id="closeModalBtn" style="width:100%;margin-top:9px">Volver al juego</button>
+  </div>
+</div>
+<script>
+const DEFAULT={name:"Milo",pet:"🐶",hunger:75,happy:80,energy:85,coins:100,xp:0,level:1,actions:0,lastVisit:Date.now()};
+let state;
+try{state={...DEFAULT,...JSON.parse(localStorage.getItem("petzone-save")||"{}")}}catch(e){state={...DEFAULT}}
+const $=id=>document.getElementById(id);
+let selectedPet=state.pet;
+let toastTimer;
+function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
+function save(){state.lastVisit=Date.now();localStorage.setItem("petzone-save",JSON.stringify(state))}
+function say(message){$("speech").textContent=message}
+function animatePet(kind){const pet=$("petArt");pet.classList.remove("playful","eating","loved");void pet.offsetWidth;pet.classList.add(kind);setTimeout(()=>pet.classList.remove(kind),1900)}
+function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2300)}
+function addXP(amount){state.xp+=amount;while(state.xp>=100){state.xp-=100;state.level++;state.coins+=25;say("¡Subimos al nivel "+state.level+"! 🎉");toast("¡Subiste al nivel "+state.level+"! 🎉 +25 monedas");animatePet("playful");}}
+function didAction(xp=10){state.actions++;addXP(xp);save();render()}
+function render(){
+ $("coins").textContent=state.coins;$("petNameLabel").textContent=`${state.name} · Nivel ${state.level}`;$("petArt").textContent=state.pet;
+ $("hungerVal").textContent=state.hunger+"%";$("happyVal").textContent=state.happy+"%";$("energyVal").textContent=state.energy+"%";
+ $("hungerBar").style.width=state.hunger+"%";$("happyBar").style.width=state.happy+"%";$("energyBar").style.width=state.energy+"%";
+ $("xpVal").textContent=`${state.xp} / 100 XP`;$("xpBar").style.width=state.xp+"%";$("actionsCount").textContent=state.actions;
+ $("petArt").classList.toggle("sleep",state.energy<20);save();
+}
+function feed(food){
+ const items={croquetas:{cost:0,hunger:22,msg:"¡Qué ricas croquetas! 😋"},pollo:{cost:10,hunger:32,msg:"¡El pollo estaba delicioso! 🍗"},pescado:{cost:15,hunger:35,msg:"¡Ñam! Le encantó el pescado 🐟"}};
+ const item=items[food];if(state.coins<item.cost){toast("Te faltan monedas 🪙");return}
+ if(state.hunger>=100){toast(state.name+" ya está lleno 😊");return}
+ state.coins-=item.cost;state.hunger=clamp(state.hunger+item.hunger);state.happy=clamp(state.happy+4);say(item.msg);animatePet("eating");didAction(8);toast(item.msg)
+}
+$("feedBtn").addEventListener("click",()=>feed("croquetas"));
+document.querySelectorAll("[data-food]").forEach(b=>b.addEventListener("click",()=>feed(b.dataset.food)));
+$("playBtn").addEventListener("click",()=>{
+ if(state.energy<15){say("Estoy cansadito... ¿descansamos? 🥱");toast("Tu mascota necesita descansar.");return}
+ if(state.hunger<10){say("Tengo hambre... ¿me das comidita? 🥺");toast("Tu mascota tiene mucha hambre.");return}
+ state.energy=clamp(state.energy-18);state.hunger=clamp(state.hunger-8);state.happy=clamp(state.happy+18);state.coins+=5;say("¡Eso fue divertidísimo! 🎾");animatePet("playful");didAction(15);toast("¡Buen juego! +5 monedas 🪙")
+});
+$("sleepBtn").addEventListener("click",()=>{
+ if(state.energy>=100){toast(state.name+" ya tiene toda su energía ✨");return}
+ state.energy=clamp(state.energy+35);say("Zzz... gracias por cuidarme 😴");$("petArt").classList.add("sleep");didAction(8);toast("¡Qué buen descanso! +35 energía")
+});
+$("petBtn").addEventListener("click",()=>{state.happy=clamp(state.happy+10);say("¡Te quiero mucho! 💗");animatePet("loved");didAction(5);toast(state.name+" está feliz por tus mimos.")});
+document.querySelectorAll("[data-buy]").forEach(b=>b.addEventListener("click",()=>{
+ const items={bone:{cost:20,happy:15,emoji:"🦴",msg:"¡Un huesito delicioso!"},bow:{cost:25,happy:10,emoji:"🎀",msg:"¡Qué elegante me veo!"},toy:{cost:30,happy:20,emoji:"🧸",msg:"¡Mi juguete nuevo!"}};
+ const item=items[b.dataset.buy];if(state.coins<item.cost){toast("No tienes suficientes monedas.");return}
+ state.coins-=item.cost;state.happy=clamp(state.happy+item.happy);say(item.msg+" "+item.emoji);animatePet("loved");didAction(12);toast(item.msg)
+}));
+function openModal(){$("nameInput").value=state.name;selectedPet=state.pet;document.querySelectorAll(".pet-choice").forEach(b=>b.classList.toggle("selected",b.dataset.pet===selectedPet));$("modalBackdrop").classList.add("open")}
+$("settingsBtn").addEventListener("click",openModal);$("renameBtn").addEventListener("click",openModal);$("closeModalBtn").addEventListener("click",()=>$("modalBackdrop").classList.remove("open"));
+document.querySelectorAll(".pet-choice").forEach(b=>b.addEventListener("click",()=>{selectedPet=b.dataset.pet;document.querySelectorAll(".pet-choice").forEach(x=>x.classList.toggle("selected",x===b))}));
+$("savePetBtn").addEventListener("click",()=>{const name=$("nameInput").value.trim();state.name=name||"Milo";state.pet=selectedPet;$("modalBackdrop").classList.remove("open");say("¡Qué alegría estar contigo! 💜");save();render();toast("¡Tu compañero está listo!")});
+$("modalBackdrop").addEventListener("click",e=>{if(e.target===$("modalBackdrop"))$("modalBackdrop").classList.remove("open")});
+// La mascota necesita atención con el paso del tiempo, incluso entre visitas.
+const away=Math.min(12,Math.floor((Date.now()-(state.lastVisit||Date.now()))/3600000));
+if(away>0){state.hunger=clamp(state.hunger-away*2);state.happy=clamp(state.happy-away);state.energy=clamp(state.energy+away);$("statusNote").textContent=`¡Qué bueno verte! Mientras no estabas, pasaron ${away} hora(s) en su pequeño mundo.`}
+render();
+if(!localStorage.getItem("petzone-intro")){setTimeout(openModal,400);localStorage.setItem("petzone-intro","yes")}
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch((err) => {
+      console.log("No se pudo registrar el modo sin conexión:", err);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
